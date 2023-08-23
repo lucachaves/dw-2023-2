@@ -1,0 +1,60 @@
+body {
+  color: darkslategray;
+  font-family: arial, sans-serif;
+  font-size: 17px;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 24px;
+  background-color: lightskyblue;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.text-italic {
+  font-style: italic;
+}
+
+h1,
+h2,
+a,
+a:visited {
+  color: darkblue;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1 a {
+  color: white;
+}
+
+h2 a {
+  color: lightskyblue;
+}
+
+h1:hover a,
+h2:hover a {
+  color: darkblue;
+}
+
+/* #copyright {
+  font-weight: bold;
+  font-style: italic;
+} */

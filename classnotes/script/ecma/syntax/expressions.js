@@ -1,16 +1,45 @@
 // expression (commands: variable, literal, operator) => (value)
+// 2x+1
+const number = 10;
+
+2 * number + 1;
+
+console.log(2 * number + 1);
 
 // operators (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence)
 
 // arithmetic operators
 // + - * / % **
+console.log(2 + 2);
+console.log(2 - 2);
+console.log(2 * 2);
+console.log(2 / 2);
+console.log(2 % 2);
+console.log(2 ** 2);
 // ieee 754
+console.log(0.3 - 0.2);
+
+// concat operator
+console.log(2 + '2'); //=> 22
+console.log(2 + Number('2')); //=> 4
 
 // increment and decrement operators
+let value = 10;
 
-// relaional operators
+console.log(value++); //=> 10
+console.log(++value); //=> 12
+
+// relational operators
+console.log(1 < 2);
+console.log(1 <= 2);
+console.log(1 > 2);
+console.log(1 >= 2);
 
 // equality operators
+console.log(1 == 1);
+console.log(1 === 1);
+console.log(1 == '1');
+console.log(1 === '1');
 
 // binary logical operators
 

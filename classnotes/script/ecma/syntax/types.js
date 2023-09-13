@@ -8,6 +8,8 @@ console.log(undefined);
 // null
 console.log(null);
 
+// Nullish null, undefined
+
 // number
 console.log(-15);
 
@@ -18,6 +20,9 @@ console.log(0xf);
 
 console.log(15.5);
 console.log(1.55e1);
+
+// BigInt
+console.log(9007199254740991n);
 
 // string
 console.log('Hello, world!');

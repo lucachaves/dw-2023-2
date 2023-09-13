@@ -36,14 +36,52 @@ console.log(1 > 2);
 console.log(1 >= 2);
 
 // equality operators
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Equality
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Strict_equality
+// https://dorey.github.io/JavaScript-Equality-Table/
 console.log(1 == 1);
 console.log(1 === 1);
 console.log(1 == '1');
 console.log(1 === '1');
 
 // binary logical operators
+// ||, &&, !
+console.log(true && false); //=> false
+console.log(true || false); //=> true
+console.log(!true); //=> false
+console.log(!!10); //=> true
+console.log(!!0); //=> false
+
+let a = 0;
+console.log(a || '10'); //=> 10
+
+// Nullish coalescing operator (??)
+let b = 0;
+console.log(b ?? '10'); //=> 10
 
 // binary bitwise operators
+// &, |, ^, ~, <<, >>, >>>
+
+//   00000001 1
+// & 00000001 1
+// = 00000001 1
+console.log(1 & 1);
+
+//   00000010 2
+// & 00000001 1
+// = 00000000 0
+console.log(2 & 1);
+
+//   00000011 3
+// & 00000001 1
+// = 00000001 1
+console.log(3 & 1);
+
+//   00000100 4
+// & 00000001 1
+// = 00000000 0
+console.log(4 & 1);
 
 // coercion type
 // https://exploringjs.com/deep-js/ch_type-coercion.html

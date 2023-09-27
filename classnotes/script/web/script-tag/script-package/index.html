@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello Tag Script</title>
+    <script>
+      function hello(person) {
+        return `Olá, ${person}`;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Hello Tag Script</h1>
+    <script type="module" src="./js/main.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.1/math.min.js"></script> -->
+    <script src="node_modules/mathjs/lib/browser/math.js"></script>
+    <script>
+      console.log(hello('John'));
+      console.log(math.sqrt(4));
+    </script>
+  </body>
+</html>

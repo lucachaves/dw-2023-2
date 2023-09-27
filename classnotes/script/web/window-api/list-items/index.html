@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Itens</title>
+  </head>
+  <body>
+    <h1>Lista</h1>
+    <ul></ul>
+    <script>
+      function list(length) {
+        let items = '';
+
+        for (let flag = 1; flag <= length; flag++) {
+          items += `<li>Item ${flag}</li>`;
+        }
+
+        return items;
+      }
+
+      const length = Number(prompt('Digite a quantidade de itens na lista:'));
+
+      const ulTag = document.querySelector('ul');
+
+      ulTag.innerHTML = list(length);
+    </script>
+  </body>
+</html>

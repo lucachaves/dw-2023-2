@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Itens</title>
+  </head>
+  <body>
+    <h1>Lista</h1>
+    <form onsubmit="handleSubmit(event)">
+      <label for="length">Número de itens na lista</label><br />
+      <input type="number" id="length" /><br />
+      <input type="submit" value="Gerar" />
+    </form>
+    <ul></ul>
+    <script>
+      function handleSubmit(event) {
+        event.preventDefault();
+
+        const lengthInput = document.querySelector('input#length');
+
+        const length = Number(lengthInput.value);
+
+        const items = list(length);
+
+        const ulTag = document.querySelector('ul');
+
+        ulTag.innerHTML = items;
+
+        lengthInput.value = '';
+      }
+
+      function list(length) {
+        let items = '';
+
+        for (let flag = 1; flag <= length; flag++) {
+          items += `<li>Item ${flag}</li>`;
+        }
+
+        return items;
+      }
+    </script>
+  </body>
+</html>

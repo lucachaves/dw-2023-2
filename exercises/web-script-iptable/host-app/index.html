@@ -6,8 +6,19 @@
     <title>Host App</title>
   </head>
   <body>
-    <div id="app" class="container">
+    <div id="app" class="container position-relative">
       <h1 class="text-center py-5">IP Table</h1>
+
+      <button
+        type="button"
+        style="top: 3.5rem; margin-right: 0.75rem"
+        class="btn btn-primary position-absolute end-0"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        +
+      </button>
+
       <table class="table">
         <thead class="table-light">
           <tr>
@@ -19,6 +30,77 @@
         <tbody></tbody>
       </table>
     </div>
+
+    <form onsubmit="handleSubmit(event)">
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                Cadastro de Host
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="name" class="form-label">Nome</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="Google DNS"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="address" class="form-label">Endereço</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="address"
+                  placeholder="8.8.8.8"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="version" class="form-label">Versão</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="version"
+                  placeholder="v4"
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Fechar
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Cadastrar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
     <script type="module" src="/js/main.js"></script>
   </body>
 </html>

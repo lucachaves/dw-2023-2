@@ -1,17 +1,13 @@
-export function HostTable(hosts) {
-  let rows = '';
+function insert(host) {
+  const tbody = document.querySelector('table tbody');
 
-  for (const host of hosts) {
-    const row = `<tr>
+  const row = `<tr>
       <td>${host.name}</td>
       <td>${host.address}</td>
       <td>${host.version}</td>
     </tr>`;
 
-    rows += row;
-  }
-
-  const tbody = document.querySelector('table tbody');
-
-  tbody.innerHTML = rows;
+  tbody.insertAdjacentHTML('beforeend', row);
 }
+
+export default { insert };

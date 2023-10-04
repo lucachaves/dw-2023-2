@@ -1,27 +1,17 @@
-const hosts = [];
-
-function hasHost({ address }) {
-  return hosts.some((host) => host.address === address);
-}
-
-function hostId({ address }) {
-  return address.replaceAll('.', '');
-}
+import Storage from '../lib/storage';
 
 function insert(host) {
-  if (!hasHost(host)) {
-    hosts.push(host);
+  if (!Storage.hasHost(host)) {
+    Storage.create(host);
 
     const tbody = document.querySelector('table tbody');
 
-    const row = `<tr id="host-${hostId(host)}">
+    const row = `<tr id="host-${host.id}">
         <td>${host.name}</td>
         <td>${host.address}</td>
         <td>${host.version}</td>
         <td>
-          <span class="icon-trash" onclick="handleRemoveHost('host-${hostId(
-            host
-          )}')">
+          <span class="icon-trash" onclick="handleRemoveHost('host-${host.id}')">
             <iconify-icon icon="ph:trash"></iconify-icon>
           </span>
         </td>
@@ -31,16 +21,16 @@ function insert(host) {
   }
 }
 
-function handleRemoveHost(host) {
-  const [, id] = host.split('-');
+function handleRemoveHost(hostId) {
+  if (confirm('Deseja remover o host?')) {
+    const id = hostId.replace('host-', '');
 
-  const hostIndex = hosts.findIndex((host) => hostId(host) === id);
+    Storage.remove(id);
 
-  hosts.splice(hostIndex, 1);
+    const hostRow = document.querySelector(`#${hostId}`);
 
-  const hostRow = document.querySelector(`#${host}`);
-
-  hostRow.remove();
+    hostRow.remove();
+  }
 }
 
 export default { insert, handleRemoveHost };

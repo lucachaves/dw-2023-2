@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import HostTable from './HostTable';
 
 function handleSubmit(event) {
@@ -11,7 +12,7 @@ function handleSubmit(event) {
 
   const version = document.querySelector('#version').value;
 
-  const host = { name, address, version };
+  const host = { id: uuidv4(), name, address, version };
 
   HostTable.insert(host);
 

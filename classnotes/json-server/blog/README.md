@@ -59,3 +59,37 @@ $ npx json-server --watch db.json
 ```
 
 Acesse os posts por meio da URL http://localhost:3000/posts.
+
+Instalar o plugin do VSCode chamado de [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) e crie o arquivo `requests.http` com o seguinte conteúdo:
+
+```http
+@host=http://localhost:3000
+
+### Read all posts
+
+GET {{host}}/posts
+
+### Create a post
+
+POST {{host}}/posts
+Content-Type: application/json
+
+{
+  "title": "Testando o JSON-Server",
+  "author": "Luiz"
+}
+
+### Update a post
+
+PUT {{host}}/posts/2
+Content-Type: application/json
+
+{
+  "title": "Testando o JSON-Server",
+  "author": "Luiz Carlos"
+}
+
+### Remove a post
+
+DELETE {{host}}/posts/2
+```

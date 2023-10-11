@@ -39,7 +39,7 @@ $ npm install json-server
 Executar o json-server:
 
 ```bash
-$ npx json-server --watch db.json
+$ npx json-server -H 0.0.0.0 --watch db.json
 
   \{^_^}/ hi!
 

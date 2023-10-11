@@ -1,0 +1,9 @@
+{
+  "hosts": [
+    {
+      "name": "Google DNS",
+      "address": "8.8.8.8",
+      "id": 1
+    }
+  ]
+}

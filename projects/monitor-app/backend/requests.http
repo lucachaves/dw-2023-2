@@ -45,3 +45,15 @@ GET {{baseUrl}}/hosts/{{createdHostId}}/reachabilities
 ### Read all reachabilities
 
 GET {{baseUrl}}/reachabilities
+
+### Create User
+
+# @name createUser
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "Carlos",
+  "email": "carlos@email.com",
+  "password": "123"
+}

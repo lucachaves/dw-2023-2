@@ -4,6 +4,7 @@ import Host from './models/Host.js';
 import Reachability from './models/Reachability.js';
 
 import { getPing } from './lib/ping.js';
+import User from './models/User.js';
 
 const router = express.Router();
 
@@ -106,6 +107,18 @@ router.delete('/hosts/:id', async (req, res) => {
   } else {
     throw new HTTPError('Id is required to remove host', 400);
   }
+});
+
+router.post('/users', async (req, res) => {
+  const user = req.body;
+
+  delete user.confirmationPassword;
+
+  const newUser = await User.create(user);
+
+  delete newUser.password;
+
+  res.status(201).json(newUser);
 });
 
 // 404 handler

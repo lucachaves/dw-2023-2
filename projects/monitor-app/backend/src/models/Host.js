@@ -36,7 +36,7 @@ async function update(host, id) {
 }
 
 async function remove(id) {
-  await prisma.host.delete({
+  return await prisma.host.delete({
     where: {
       id,
     },

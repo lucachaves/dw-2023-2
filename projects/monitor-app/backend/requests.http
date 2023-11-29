@@ -33,3 +33,15 @@ Content-Type: application/json
 ### Delete a host
 
 DELETE {{baseUrl}}/hosts/{{createdHostId}}
+
+### Create reachability
+
+POST {{baseUrl}}/hosts/{{createdHostId}}/reachabilities
+
+### Read reachabilities by Host
+
+GET {{baseUrl}}/hosts/{{createdHostId}}/reachabilities
+
+### Read all reachabilities
+
+GET {{baseUrl}}/reachabilities

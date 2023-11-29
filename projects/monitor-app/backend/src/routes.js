@@ -1,6 +1,9 @@
 import express from 'express';
 
 import Host from './models/Host.js';
+import Reachability from './models/Reachability.js';
+
+import { getPing } from './lib/ping.js';
 
 const router = express.Router();
 
@@ -53,6 +56,46 @@ router.put('/hosts/:id', async (req, res) => {
   } else {
     throw new HTTPError('Invalid data to update host', 400);
   }
+});
+
+router.post('/hosts/:id/reachabilities', async (req, res) => {
+  const id = Number(req.params.id);
+
+  const host = await Host.read(id);
+
+  const count = 3;
+
+  const ping = await getPing(host.address, count);
+
+  const times = ping.times.map((time) => ({ value: time }));
+
+  const reachability = {
+    transmitted: count,
+    received: ping.times.length,
+    hostId: id,
+  };
+
+  await Reachability.create(reachability);
+
+  res.json(times);
+});
+
+router.get('/hosts/:id/reachabilities', async (req, res) => {
+  const id = Number(req.params.id);
+
+  const reachabilities = await Reachability.readByHost(id);
+
+  if (id && reachabilities) {
+    res.json(reachabilities);
+  } else {
+    throw new HTTPError('Invalid id to read host', 400);
+  }
+});
+
+router.get('/reachabilities', async (req, res) => {
+  const reachabilities = await Reachability.readAll();
+
+  res.json(reachabilities);
 });
 
 router.delete('/hosts/:id', async (req, res) => {

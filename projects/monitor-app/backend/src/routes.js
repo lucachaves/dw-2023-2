@@ -1,10 +1,13 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 import Host from './models/Host.js';
 import Reachability from './models/Reachability.js';
+import User from './models/User.js';
 
 import { getPing } from './lib/ping.js';
-import User from './models/User.js';
+import { isAuthenticated } from './middleware/auth.js';
 
 const router = express.Router();
 
@@ -15,7 +18,7 @@ class HTTPError extends Error {
   }
 }
 
-router.post('/hosts', async (req, res) => {
+router.post('/hosts', isAuthenticated, async (req, res) => {
   const host = req.body;
 
   const newHost = await Host.create(host);
@@ -27,13 +30,13 @@ router.post('/hosts', async (req, res) => {
   }
 });
 
-router.get('/hosts', async (req, res) => {
+router.get('/hosts', isAuthenticated, async (req, res) => {
   const hosts = await Host.readAll();
 
   res.json(hosts);
 });
 
-router.get('/hosts/:id', async (req, res) => {
+router.get('/hosts/:id', isAuthenticated, async (req, res) => {
   const id = Number(req.params.id);
 
   const host = await Host.read(id);
@@ -45,7 +48,7 @@ router.get('/hosts/:id', async (req, res) => {
   }
 });
 
-router.put('/hosts/:id', async (req, res) => {
+router.put('/hosts/:id', isAuthenticated, async (req, res) => {
   const id = Number(req.params.id);
 
   const host = req.body;
@@ -59,7 +62,17 @@ router.put('/hosts/:id', async (req, res) => {
   }
 });
 
-router.post('/hosts/:id/reachabilities', async (req, res) => {
+router.delete('/hosts/:id', isAuthenticated, async (req, res) => {
+  const id = Number(req.params.id);
+
+  if (id && (await Host.remove(id))) {
+    res.sendStatus(204);
+  } else {
+    throw new HTTPError('Id is required to remove host', 400);
+  }
+});
+
+router.post('/hosts/:id/reachabilities', isAuthenticated, async (req, res) => {
   const id = Number(req.params.id);
 
   const host = await Host.read(id);
@@ -81,7 +94,7 @@ router.post('/hosts/:id/reachabilities', async (req, res) => {
   res.json(times);
 });
 
-router.get('/hosts/:id/reachabilities', async (req, res) => {
+router.get('/hosts/:id/reachabilities', isAuthenticated, async (req, res) => {
   const id = Number(req.params.id);
 
   const reachabilities = await Reachability.readByHost(id);
@@ -93,20 +106,10 @@ router.get('/hosts/:id/reachabilities', async (req, res) => {
   }
 });
 
-router.get('/reachabilities', async (req, res) => {
+router.get('/reachabilities', isAuthenticated, async (req, res) => {
   const reachabilities = await Reachability.readAll();
 
   res.json(reachabilities);
-});
-
-router.delete('/hosts/:id', async (req, res) => {
-  const id = Number(req.params.id);
-
-  if (id && (await Host.remove(id))) {
-    res.sendStatus(204);
-  } else {
-    throw new HTTPError('Id is required to remove host', 400);
-  }
 });
 
 router.post('/users', async (req, res) => {
@@ -119,6 +122,44 @@ router.post('/users', async (req, res) => {
   delete newUser.password;
 
   res.status(201).json(newUser);
+});
+
+router.post('/signin', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const { id: userId, password: hash } = await User.readByEmail(email);
+
+    const match = await bcrypt.compare(password, hash);
+
+    if (match) {
+      const token = jwt.sign(
+        { userId },
+        process.env.SECRET,
+        { expiresIn: 3600 } // 1h
+      );
+
+      res.json({ auth: true, token });
+    } else {
+      throw new Error('User not found');
+    }
+  } catch (error) {
+    res.status(401).json({ error: 'User not found' });
+  }
+});
+
+router.get('/users/me', isAuthenticated, async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    const user = await User.read(userId);
+
+    delete user.password;
+
+    return res.json(user);
+  } catch (error) {
+    throw new HTTPError('Unable to find user', 400);
+  }
 });
 
 // 404 handler

@@ -1,10 +1,13 @@
 @baseUrl=http://localhost:3000
 @createdHostId = {{createHost.response.body.$.id}}
+@token = {{signin.response.body.$.token}}
+@userId = {{userMe.response.body.$.id}}
 
 ### Create Host
 
 # @name createHost
 POST {{baseUrl}}/hosts
+Authorization: bearer {{token}}
 Content-Type: application/json
 
 {
@@ -15,14 +18,17 @@ Content-Type: application/json
 ### Read Hosts
 
 GET {{baseUrl}}/hosts
+Authorization: bearer {{token}}
 
 ### Read a host
 
 GET {{baseUrl}}/hosts/{{createdHostId}}
+Authorization: bearer {{token}}
 
 ### Update a host
 
 PUT {{baseUrl}}/hosts/{{createdHostId}}
+Authorization: bearer {{token}}
 Content-Type: application/json
 
 {
@@ -33,18 +39,22 @@ Content-Type: application/json
 ### Delete a host
 
 DELETE {{baseUrl}}/hosts/{{createdHostId}}
+Authorization: bearer {{token}}
 
 ### Create reachability
 
 POST {{baseUrl}}/hosts/{{createdHostId}}/reachabilities
+Authorization: bearer {{token}}
 
 ### Read reachabilities by Host
 
 GET {{baseUrl}}/hosts/{{createdHostId}}/reachabilities
+Authorization: bearer {{token}}
 
 ### Read all reachabilities
 
 GET {{baseUrl}}/reachabilities
+Authorization: bearer {{token}}
 
 ### Create User
 
@@ -55,5 +65,34 @@ Content-Type: application/json
 {
   "name": "Carlos",
   "email": "carlos@email.com",
+  "password": "123",
+  "confirmationPassword": "123"
+}
+
+### Signin Ok
+
+# @name signin
+POST {{baseUrl}}/signin
+Content-Type: application/json
+
+{
+  "email": "carlos@email.com",
   "password": "123"
 }
+
+### Signin fail
+
+POST {{baseUrl}}/signin
+Content-Type: application/json
+
+{
+  "email": "fail@email.com",
+  "password": "123"
+}
+
+### Read User (with token)
+
+# @name userMe
+GET {{baseUrl}}/users/me
+Authorization: bearer {{token}}
+

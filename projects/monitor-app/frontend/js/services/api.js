@@ -1,6 +1,8 @@
-const host = 'http://localhost:3000';
+import Auth from '../lib/auth.js';
 
-async function create(resource, data) {
+const host = '/api';
+
+async function create(resource, data, auth = true) {
   const url = `${host}/${resource}`;
 
   const config = {
@@ -11,6 +13,10 @@ async function create(resource, data) {
     body: JSON.stringify(data),
   };
 
+  if (auth) {
+    config.headers.Authorization = `Bearer ${Auth.getToken()}`;
+  }
+
   const response = await fetch(url, config);
 
   return await response.json();
@@ -19,7 +25,14 @@ async function create(resource, data) {
 async function read(resource) {
   const url = `${host}/${resource}`;
 
-  const response = await fetch(url);
+  const config = {
+    method: 'get',
+    headers: {
+      Authorization: `Bearer ${Auth.getToken()}`,
+    },
+  };
+
+  const response = await fetch(url, config);
 
   return await response.json();
 }
@@ -31,6 +44,7 @@ async function update(resource, data) {
     method: 'put',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${Auth.getToken()}`,
     },
     body: JSON.stringify(data),
   };
@@ -45,6 +59,9 @@ async function remove(resource) {
 
   const config = {
     method: 'delete',
+    headers: {
+      Authorization: `Bearer ${Auth.getToken()}`,
+    },
   };
 
   const response = await fetch(url, config);

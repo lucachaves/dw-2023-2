@@ -1,8 +1,10 @@
 import 'bootstrap';
 import 'iconify-icon';
+
 import HostTable from './components/HostTable';
 import API from './services/api';
 import Auth from './lib/auth';
+import { createLineChart } from './components/Chart';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -38,4 +40,6 @@ if (Auth.isAuthenticated()) {
   }
 
   loadSubmitHandler();
+
+  createLineChart('chart-line');
 }

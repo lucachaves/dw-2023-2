@@ -6,7 +6,7 @@ function insert(host) {
       <td>${host.address}</td>
       <td>
         <iconify-icon icon="bx:stopwatch"></iconify-icon>
-        <iconify-icon class="ms-4" icon="bx:trash"></iconify-icon>
+        <!-- <iconify-icon class="ms-4" icon="bx:trash"></iconify-icon> -->
       </td>
     </tr>`;
 

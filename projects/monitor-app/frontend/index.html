@@ -42,8 +42,13 @@
             <div class="card-header">
               <h5 class="text-center">
                 Hosts
-                <div class="float-end create-host-event">
-                  <span class="iconify" data-icon="bx:plus"></span>
+                <div
+                  class="float-end create-host-event lh-base"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#offcanvasRight"
+                  aria-controls="offcanvasRight"
+                >
+                  <iconify-icon icon="bx:plus"></iconify-icon>
                 </div>
               </h5>
             </div>
@@ -77,6 +82,52 @@
         </div>
       </div>
     </div>
+
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvasRight"
+      aria-labelledby="offcanvasRightLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">
+          Cadastro de Host
+        </h5>
+        <button
+          type="button"
+          id="close-offcanvas"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <form>
+          <div class="mb-3">
+            <label for="name" class="form-label">Nome</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              placeholder="Google Search"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">Endereço</label>
+            <input
+              type="text"
+              class="form-control"
+              id="address"
+              placeholder="www.google.com"
+            />
+          </div>
+          <div>
+            <button type="submit" class="btn btn-secondary">Cadastrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <script type="module" src="/js/index.js"></script>
   </body>
 </html>
